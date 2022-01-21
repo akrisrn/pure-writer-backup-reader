@@ -10,6 +10,10 @@ export function error(message?: any, ...optionalParams: any[]) {
   log('[error]', message, ...optionalParams);
 }
 
+export async function sleep(timeout: number) {
+  await new Promise(resolve => setTimeout(resolve, timeout));
+}
+
 export function* yieldFilePath(dirPath: string, match: RegExp) {
   for (const dirent of fs.readdirSync(dirPath, {
     withFileTypes: true,
