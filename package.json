@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "watch": "webpack --mode=development --watch",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "start": "node dist/main.js"
   },
   "dependencies": {
     "cross-spawn": "^7.0.3",

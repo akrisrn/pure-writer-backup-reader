@@ -12,6 +12,7 @@ module.exports = {
   ],
   context,
   entry: {
+    main: './main.ts',
   },
   plugins: [
     new CleanWebpackPlugin(),
