@@ -33,4 +33,5 @@ export function commitAll(rootDir: string, message: string) {
       break;
     }
   }
+  log('[git]', 'commit completed');
 }
