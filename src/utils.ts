@@ -34,3 +34,7 @@ export function watchDir(dirPath: string, match: RegExp, callback: Callback) {
     },
   }, callback);
 }
+
+export function getRelative(filePath: string, rootPath: string) {
+  return path.relative(rootPath, filePath).replace(/\\/g, '/');
+}
