@@ -1,6 +1,15 @@
 import { extractBackup, yieldBackupPath } from '@/backup';
 import { closeDB, initSQL, openDB } from '@/db';
-import { BACKUPS_PATH, TARGET_PATH, WATCH, WEB_DAV, WEB_DAV_PASSWORD, WEB_DAV_URL, WEB_DAV_USERNAME } from '@/env';
+import {
+  BACKUPS_PATH,
+  ENABLE_GIT,
+  TARGET_PATH,
+  WATCH,
+  WEB_DAV,
+  WEB_DAV_PASSWORD,
+  WEB_DAV_URL,
+  WEB_DAV_USERNAME,
+} from '@/env';
 import { commitAll } from '@/git';
 import { error, getRelative } from '@/utils';
 import { writeData } from '@/write';
@@ -44,6 +53,8 @@ const DB_FILE_REGEXP = /\.db$/;
 
     await closeDB(db);
 
-    commitAll(TARGET_PATH, getRelative(filePath, BACKUPS_PATH));
+    if (ENABLE_GIT) {
+      commitAll(TARGET_PATH, getRelative(filePath, BACKUPS_PATH));
+    }
   }
 })();
