@@ -82,7 +82,7 @@ function writeFolder(dirPath: string, folder: PWFolder) {
 
 function writeArticle(dirPath: string, article: PWArticle) {
   const filePath = path.join(dirPath, `${ article.id }.${ article.ext }`);
-  let fileData = [];
+  const fileData = [];
   fileData.push(dumpProps([{
     key: 'count',
     value: article.count,
@@ -106,7 +106,7 @@ export async function writeData(dirPath: string, stmts: Statement[]) {
     remove(dirPath);
   }
   mkdir(dirPath);
-  writeIndex(dirPath, `# Pure Writer\n`);
+  writeIndex(dirPath, `# PureWriter\n`);
 
   const [folderStmt, categoryStmt, articleStmt] = stmts;
   for (const folder of await folderStmt.all<PWFolder[]>()) {
