@@ -24,8 +24,40 @@ interface PWArticle {
   rank: number;
 }
 
+function padZero(num: number, len = 2) {
+  return `${ num }`.padStart(len, '0');
+}
+
 function formatDate(value: number) {
-  return new Date(value).toJSON();
+  const date = new Date(value);
+  const dateList = [
+    date.getFullYear().toString(),
+  ];
+  [
+    date.getMonth() + 1,
+    date.getDate(),
+    date.getHours(),
+    date.getMinutes(),
+    date.getSeconds(),
+  ].forEach(num => {
+    dateList.push(padZero(num));
+  });
+  dateList.push(padZero(date.getMilliseconds(), 3));
+
+  let timezone = 'Z';
+  const offset = date.getTimezoneOffset();
+  if (offset !== 0) {
+    const absOffset = Math.abs(offset);
+    const tzHour = Math.floor(absOffset / 60);
+    const tzMinute = absOffset % 60;
+    timezone = [
+      offset < 0 ? '+' : '-',
+      padZero(tzHour),
+      ':',
+      padZero(tzMinute),
+    ].join('');
+  }
+  return `${ dateList.slice(0, 3).join('-') }T${ dateList.slice(3, 6).join(':') }.${ dateList[6] }${ timezone }`;
 }
 
 function createLink(text: string, href: string) {
