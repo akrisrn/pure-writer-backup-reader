@@ -66,11 +66,11 @@ function writeFolder(dirPath: string, folder: PWFolder) {
   const folderPath = path.join(dirPath, folder.id);
   mkdir(folderPath);
   const indexData = [
-    `# ${ folder.name }`,
     dumpProps([{
       key: 'created',
       value: formatDate(folder.created),
     }]),
+    `# ${ folder.name }`,
   ];
   if (folder.desc) {
     indexData.push(`> ${ folder.desc }`);
@@ -83,9 +83,6 @@ function writeFolder(dirPath: string, folder: PWFolder) {
 function writeArticle(dirPath: string, article: PWArticle) {
   const filePath = path.join(dirPath, `${ article.id }.${ article.ext }`);
   let fileData = [];
-  if (article.title) {
-    fileData.push(`${ article.ext === 'md' ? '# ' : '' }${ article.title }`);
-  }
   fileData.push(dumpProps([{
     key: 'count',
     value: article.count,
@@ -96,6 +93,9 @@ function writeArticle(dirPath: string, article: PWArticle) {
     key: 'updated',
     value: formatDate(article.updated),
   }]));
+  if (article.title) {
+    fileData.push(`${ article.ext === 'md' ? '# ' : '' }${ article.title }`);
+  }
   fileData.push(article.content);
   write(filePath, fileData.join('\n\n'));
   writeIndex(dirPath, createLink(article.title, getRelative(filePath, dirPath)), false);
